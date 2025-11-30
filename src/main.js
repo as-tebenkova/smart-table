@@ -1,6 +1,5 @@
 import "./fonts/ys-display/fonts.css";
 import "./style.css";
-import { data as sourceData } from "./data/dataset_1.js";
 import { initData } from "./data.js";
 import { processFormData } from "./lib/utils.js";
 import { initTable } from "./components/table.js";
@@ -12,7 +11,7 @@ import { initPagination } from "./components/pagination.js";
 // @todo: подключение
 
 // Исходные данные используемые в render()
-const api = initData(sourceData);
+const api = initData();
 
 /**
  * Сбор и обработка полей из таблицы
@@ -36,7 +35,7 @@ function collectState() {
  * Перерисовка состояния таблицы при любых изменениях
  * @param {HTMLButtonElement?} action
  */
-async function render() {
+async function render(action) {
   let state = collectState(); // состояние полей из таблицы
   let query = {}; // копируем для последующего изменения
   // @todo: использование
@@ -69,11 +68,7 @@ const sampleTable = initTable(
 
 // @todo: инициализация
 const { applyFiltering, updateIndexes } = initFiltering(
-  sampleTable.filter.elements,
-  {
-    // передаём элементы фильтра
-    searchBySeller: indexes.sellers, // для элемента с именем searchBySeller устанавливаем массив продавцов
-  }
+  sampleTable.filter.elements
 );
 
 const applySearching = initSearching("search");

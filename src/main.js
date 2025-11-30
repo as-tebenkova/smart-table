@@ -43,6 +43,7 @@ function render(action) {
   let state = collectState(); // состояние полей из таблицы
   let result = [...data]; // копируем для последующего изменения
   // @todo: использование
+  result = applySearching(result, state, action);
   result = applyFiltering(result, state, action);
   result = applySorting(result, state, action);
   result = applyPagination(result, state, action);
@@ -65,6 +66,9 @@ const applyFiltering = initFiltering(sampleTable.filter.elements, {
   // передаём элементы фильтра
   searchBySeller: indexes.sellers, // для элемента с именем searchBySeller устанавливаем массив продавцов
 });
+
+const applySearching = initSearching('search');
+
 const applySorting = initSorting([
   // Нам нужно передать сюда массив элементов, которые вызывают сортировку, чтобы изменять их визуальное представление
   sampleTable.header.elements.sortByDate,
